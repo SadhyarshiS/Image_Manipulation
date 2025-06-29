@@ -22,14 +22,14 @@ class StyleGAN3Encoder(nn.Module):
         print("Synthesis blocks:")
         for name, block in self.synthesis.named_children():
             print(f" - {name}: {type(block)}")
-        # Check 'input' block
+      
         self.input_block = getattr(self.synthesis, 'input', None)
         self.input_accepts_w = False
         if self.input_block and callable(self.input_block):
             sig = inspect.signature(self.input_block.forward)
             self.input_accepts_w = 'w' in sig.parameters
             print(f"'input' block accepts 'w': {self.input_accepts_w}")
-        # No adjustment to w_dim
+       
         self.ws_adjust = nn.Identity().to(device)
         self.expected_w_dim = self.w_dim
 
