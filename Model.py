@@ -12,7 +12,7 @@ import time
 from google.colab import drive
 import gc
 
-# Authenticate and initialize GCS
+
 os.environ['GOOGLE_CLOUD_PROJECT'] = 'norse-analyst-457504-b2'
 auth.authenticate_user()
 try:
@@ -22,7 +22,7 @@ try:
 except Exception as e:
     raise Exception(f"Failed to access GCS bucket 'feature_map': {e}")
 
-# Mount Google Drive
+
 def mount_drive(max_retries=3, delay=5):
     for attempt in range(max_retries):
         try:
@@ -38,7 +38,7 @@ def mount_drive(max_retries=3, delay=5):
 if not mount_drive():
     raise Exception("Failed to mount Google Drive after multiple attempts")
 
-# Unzip dataset
+
 dataset_zip_path = "/content/drive/MyDrive/dataset.zip"
 dataset_extract_path = "/content/dataset"
 max_retries = 3
@@ -230,8 +230,8 @@ def create_dataset(df, batch_size):
     gc.collect()
     return dataset
 
-# Batch size configuration
-BATCH_SIZE = 4  # Reverted to T4-compatible
+
+BATCH_SIZE = 4  
 
 # Create datasets
 train_ds = create_dataset(train_df, BATCH_SIZE)
